@@ -7,11 +7,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <form #form="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-input label="Dados" labelPlacement="floating" #text type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-button (click)="writeSecretFile(text.value)" expand="block" fill="clear" shape="round">
+          Gravar
+        </ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-text color="primary">
+          {{dadosGravados}}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-button [disabled]="!form.valid" (click)="readSecretFile()" expand="block" fill="clear" shape="round">
+          Ler
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
 </ion-content>
