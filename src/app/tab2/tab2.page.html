@@ -7,19 +7,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container" class="margin ion-text-center">
-    <ion-textarea #textarea [autoGrow]="true" label="O que quer ouvir?" labelPlacement="floating"
-      fill="outline"></ion-textarea>
+    <ion-list>
+      <ion-item>
+        <ion-input #input label="O que quer ouvir?" labelPlacement="floating"></ion-input>
+      </ion-item>
+    </ion-list>
     <ion-grid>
       <ion-row>
         <ion-col size="3">
-          <ion-fab-button (click)="speak(+taxa, +tom,textarea)">
+          <ion-fab-button (click)="speak(+taxa, +tom,input)">
             <ion-icon name="play"></ion-icon>
           </ion-fab-button></ion-col>
         <ion-col size="3">
@@ -28,12 +25,12 @@
           </ion-fab-button>
         </ion-col>
         <ion-col size="3">
-          <ion-fab-button (click)="clear(textarea)" color="warning">
+          <ion-fab-button (click)="clear(input)" color="warning">
             <ion-icon name="trash"></ion-icon>
           </ion-fab-button>
         </ion-col>
         <ion-col size="3">
-          <ion-fab-button (click)="speakStart(textarea)">
+          <ion-fab-button (click)="speakStart(input)">
             Por fala
           </ion-fab-button>
         </ion-col>

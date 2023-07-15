@@ -1,56 +1,51 @@
+import { Filesystem } from '@capacitor/filesystem';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { FilesystemService } from '../service/filesystem.service';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   standalone: true,
-  imports: [IonicModule, ExploreContainerComponent, FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    IonicModule,
+    ExploreContainerComponent,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
 })
 export class Tab1Page {
-  dadosGravados: any;
-  caminhoGravado: any;
-  constructor() {
-    this.deleteSecretFile();
+  dadosGravados!: any[];
+  caminhoGravado!: any;
+  constructor(public fileService: FilesystemService) {
+    
+  }
+
+  ngOnInit(){
+    this.fileService.deleteSecretFile();
+    this.dadosGravados = this.fileService.getDados();
+    this.caminhoGravado = this.fileService.getCaminho();
   }
 
   async writeSecretFile(data: any) {
-    await Filesystem.writeFile({
-      path: 'secrets/text.txt',
-      data: data,
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8,
-    });
+    await this.fileService.writeSecretFile(data);
   }
 
   async readSecretFile() {
-    const contents = await Filesystem.readFile({
-      path: 'secrets/text.txt',
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8,
-    });
-
-    this.dadosGravados = contents.data;
+    await this.fileService.readSecretFile();
   }
 
   async deleteSecretFile() {
-    await Filesystem.deleteFile({
-      path: 'secrets/text.txt',
-      directory: Directory.Documents,
-    });
+    await this.fileService.deleteSecretFile();
   }
 
   async readFilePath() {
-    const contents = await Filesystem.readFile({
-      path: 'file:///var/mobile/Containers/Data/Application/22A433FD-D82D-4989-8BE6-9FC49DEA20BB/Documents/text.txt',
-    });
-
-    this.caminhoGravado = contents;
+    await this.fileService.readFilePath();
   }
 }

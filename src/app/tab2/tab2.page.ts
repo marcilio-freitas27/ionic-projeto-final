@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
-import { IonTextarea } from '@ionic/angular';
+import { IonInput } from '@ionic/angular';
 import { RangeValue } from '@ionic/core';
 import { SpeechService } from '../service/speech.service';
 
@@ -24,7 +24,7 @@ export class Tab2Page {
 
   }
 
-  speak(taxa: RangeValue, tom: RangeValue, text: IonTextarea){
+  speak(taxa: RangeValue, tom: RangeValue, text: IonInput){
     this.speechService.speak(taxa, tom, text);
   };
 
@@ -40,11 +40,11 @@ export class Tab2Page {
     this.speechService.tomChange(tom, event);
   }
 
-  clear(text: IonTextarea){
+  clear(text: IonInput){
     this.speechService.clear(text);
   }
 
-  speakStart(text: IonTextarea){
+  speakStart(text: IonInput){
     this.speechService.speakStart(text);
   }
 
