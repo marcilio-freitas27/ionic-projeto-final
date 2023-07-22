@@ -1,17 +1,35 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
+    <ion-title class="ion-text-center">
+      Histórico de pesquisas
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-text>
+        Últimas pesquisas
+      </ion-text>
+    </ion-item>
+    <ion-item *ngFor="let dado of dadosGravados">
+      <ion-text (onChange)="readSecretFile()">
+        {{dado}}
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text>
+        Gráfico de pesquisas
+      </ion-text>
+    </ion-item>
+    <ion-item>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+      <canvas id="myChart"></canvas>
+
+    </ion-item>
+  </ion-list>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
 </ion-content>

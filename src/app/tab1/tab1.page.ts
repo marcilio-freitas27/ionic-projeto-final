@@ -24,13 +24,14 @@ export class Tab1Page {
   dadosGravados!: any[];
   caminhoGravado!: any;
   constructor(public fileService: FilesystemService) {
-    
+
   }
 
   ngOnInit(){
     this.fileService.deleteSecretFile();
     this.dadosGravados = this.fileService.getDados();
     this.caminhoGravado = this.fileService.getCaminho();
+    this.fileService.readSecretFile();
   }
 
   async writeSecretFile(data: any) {
