@@ -8,7 +8,7 @@ export class FilesystemService {
   dadosGravados: any[];
   caminhoGravado: any;
   constructor() {
-    this.dadosGravados = [1,2,3];
+    this.dadosGravados = [];
   }
 
   getDados() {
@@ -22,11 +22,13 @@ export class FilesystemService {
   setCaminho(dados: any) {
     this.caminhoGravado = dados;
   }
+
   setDados(dados: any) {
     this.dadosGravados.push(dados);
   }
 
   async writeSecretFile(data: any) {
+    await this.setDados(data);
     await Filesystem.writeFile({
       path: 'secrets/text.txt',
       data: data,
@@ -36,13 +38,14 @@ export class FilesystemService {
   }
 
   async readSecretFile() {
-    const contents = await Filesystem.readFile({
+    const contents: any = await Filesystem.readFile({
       path: 'secrets/text.txt',
       directory: Directory.Documents,
       encoding: Encoding.UTF8,
     });
 
-    this.setDados(contents.data);
+    this.dadosGravados = contents.data;
+    return this.dadosGravados;
   }
 
   async deleteSecretFile() {

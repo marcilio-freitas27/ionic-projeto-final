@@ -14,9 +14,12 @@
       </ion-text>
     </ion-item>
     <ion-item *ngFor="let dado of dadosGravados">
-      <ion-text (onChange)="readSecretFile()">
+      <ion-text>
         {{dado}}
       </ion-text>
+      <ion-button (click)="updateChart(dado)">
+        Update chart
+      </ion-button>
     </ion-item>
     <ion-item>
       <ion-text>

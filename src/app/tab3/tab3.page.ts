@@ -21,28 +21,46 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class Tab3Page {
   dadosGravados!: any[];
+  maisAcessados!: any[];
+  menosAcessados!: any[];
+  total!: any[];
   ctx!: any;
-  constructor(public fileService: FilesystemService) {}
+  constructor(public fileService: FilesystemService) {
+    this.dadosGravados = [];
+    this.maisAcessados = [];
+    this.menosAcessados = [];
+    this.total = [];
+  }
 
   ngOnInit() {
+    this.fileService.deleteSecretFile();
     this.dadosGravados = this.fileService.getDados();
     this.getChart();
   }
 
   async readSecretFile() {
+    await this.gerarRankingPesquisas();
     await this.fileService.readSecretFile();
+  }
+
+  gerarRankingPesquisas(): any{
+
+  }
+
+  updateChart(dado:any ){
+    this.total.push(dado);
   }
 
   getChart() {
     this.ctx = document.getElementById('myChart');
-    new Chart(this.ctx, {
+    let chart = new Chart(this.ctx, {
       type: 'bar',
       data: {
         labels: ['Mais Acessados', 'Menos Acessados', 'Total'],
         datasets: [
           {
             label: 'Pesquisas',
-            data: [10, 20, 30],
+            data: [10, 20, this.total.length],
             borderWidth: 1,
           },
         ],
@@ -55,5 +73,6 @@ export class Tab3Page {
         },
       },
     });
+    chart.update();
   }
 }
