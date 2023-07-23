@@ -1,5 +1,6 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { FilesystemService } from '../service/filesystem.service';
 
 @Component({
   selector: 'app-tabs',
@@ -10,6 +11,10 @@ import { IonicModule } from '@ionic/angular';
 })
 export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
+  total!: any[];
+  constructor(private fileService: FilesystemService) {}
 
-  constructor() {}
+  ngOnInit(){
+    this.total = this.fileService.getDados();
+  }
 }

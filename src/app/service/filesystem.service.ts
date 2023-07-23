@@ -9,6 +9,7 @@ export class FilesystemService {
   caminhoGravado: any;
   constructor() {
     this.dadosGravados = [];
+    localStorage.getItem('listaTotal');
   }
 
   getDados() {
@@ -25,6 +26,7 @@ export class FilesystemService {
 
   setDados(dados: any) {
     this.dadosGravados.push(dados);
+    localStorage.setItem('listaTotal', JSON.stringify(this.dadosGravados));
   }
 
   async writeSecretFile(data: any) {
