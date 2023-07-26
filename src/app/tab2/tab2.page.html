@@ -6,8 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div id="container" class="margin ion-text-center">
+<ion-content>
+  <!-- <div id="container" class="margin ion-text-center">
     <ion-list>
       <ion-item>
         <ion-input #input label="O que quer ouvir?" labelPlacement="floating"></ion-input>
@@ -46,5 +46,43 @@
       <ion-range #tom min="0.0" max="2.0" pin="true" color="success" (ionChange)="tomChange(+tom, $event)">
       </ion-range>
     </ion-item>
-  </div>
+  </div> -->
+  <!-- <div #map id="map"></div> -->
+  <ion-list>
+    <ion-item>
+      <h3>Tom tom maps search</h3>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        {{reverseGeoCoded}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="input" label="Pesquisa" labelPlacement="stacked" placeholder="Digite aqui"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-button (click)="search(input)">Buscar</ion-button>
+    </ion-item>
+
+  </ion-list>
+  <ion-list *ngFor="let item of result">
+    <ion-item>
+      <ion-card>
+        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+        <ion-card-header>
+          <ion-card-subtitle>Acesse: {{item.poi!.url}}</ion-card-subtitle>
+          <ion-card-title>{{item.poi!.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Endereço: {{item.address!.streetName}}, {{item.address!.municipality}},
+          {{item.address!.municipalitySubdivision}},
+          {{item.address!.countrySubdivision}}
+        </ion-card-content>
+        <ion-button (click)="locateResult(item)" expand="block" fill="clear" shape="round">
+          Locate
+        </ion-button>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>

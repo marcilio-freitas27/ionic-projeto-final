@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Gravador de dados
+    <ion-title class="ion-text-center">
+      Pesquisas
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +10,15 @@
   <form #form="ngForm">
     <ion-list>
       <ion-item>
-        <ion-input label="Dados" labelPlacement="floating" #text type="text"></ion-input>
+        <ion-input #input label="Pesquisa" labelPlacement="floating" #text type="text"></ion-input>
+        <ion-button (click)="speakStart(input)" id="hover-trigger">
+          <ion-icon name="mic"></ion-icon>
+        </ion-button>
+        <!-- <ion-popover trigger="hover-trigger" triggerAction="hover">
+          <ng-template>
+            <ion-content class="ion-padding">Pesquisa por voz</ion-content>
+          </ng-template>
+        </ion-popover> -->
       </ion-item>
       <ion-item>
         <ion-button (click)="writeSecretFile(text.value)" shape="round">

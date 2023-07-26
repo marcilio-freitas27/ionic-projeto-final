@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { FilesystemService } from '../service/filesystem.service';
+import { SpeechService } from '../service/speech.service';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -23,7 +25,11 @@ import { FilesystemService } from '../service/filesystem.service';
 export class Tab1Page {
   dadosGravados!: any[];
   caminhoGravado!: any;
-  constructor(public fileService: FilesystemService) {
+  result = false;
+  constructor(
+    public fileService: FilesystemService,
+    private speechService: SpeechService
+  ) {
 
   }
 
@@ -32,6 +38,18 @@ export class Tab1Page {
     this.dadosGravados = this.fileService.getDados();
     this.caminhoGravado = this.fileService.getCaminho();
     this.fileService.readSecretFile();
+  }
+
+  speakStart(text: IonInput){
+    this.speechService.speakStart(text);
+  }
+
+  isOpen(){
+    this.result = true;
+  }
+
+  isClosed(){
+    this.result = false;
   }
 
   async writeSecretFile(data: any) {
