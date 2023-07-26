@@ -23,17 +23,20 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
   ],
 })
-export class Tab2Page {
+export class Tab2Page{
   input: any;
   latitute: any;
   longetude: any;
-  map!: any;
+  map!: tt.Map;
   result!: any;
   searchResultMarker!: any;
   reverseGeoCoded!: any;
   taxa!: RangeValue;
   tom!: RangeValue;
   constructor(private http: HttpClient, private speechService: SpeechService) {
+  }
+  ionViewDidEnter() {
+    console.log('load');
     this.map = tt.map({
       key: 'qWs3zqjNxKQGEexONPwFAxRE5knGm6K7',
       container: 'map',
@@ -45,8 +48,6 @@ export class Tab2Page {
       .addTo(this.map);
     this.input = 'Pizza';
   }
-
-  ngOnInit() {}
 
   async geolocation() {
     // await Geolocation.requestPermissions();
