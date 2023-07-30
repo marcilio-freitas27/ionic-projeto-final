@@ -26,34 +26,42 @@ export class Tab1Page {
   dadosGravados!: any[];
   caminhoGravado!: any;
   result = false;
+  input!: any;
   constructor(
     public fileService: FilesystemService,
     private speechService: SpeechService
-  ) {
+  ) {}
 
-  }
-
-  ngOnInit(){
+  ngOnInit() {
     this.fileService.deleteSecretFile();
     this.dadosGravados = this.fileService.getDados();
     this.caminhoGravado = this.fileService.getCaminho();
     this.fileService.readSecretFile();
   }
 
-  speakStart(text: IonInput){
-    this.speechService.speakStart(text);
+  googleResults(text: any) {
+    this.speechService
+      .consultaGoogle(text)
+      .subscribe((arg) => console.log(arg));
   }
 
-  isOpen(){
+  speakStart(text: any) {
+    this.speechService.speakStart(text);
+    this.writeSecretFile(text);
+    this.input = text;
+  }
+
+  isOpen() {
     this.result = true;
   }
 
-  isClosed(){
+  isClosed() {
     this.result = false;
   }
 
   async writeSecretFile(data: any) {
     await this.fileService.writeSecretFile(data);
+    this.input = data;
   }
 
   async readSecretFile() {
@@ -68,3 +76,29 @@ export class Tab1Page {
     await this.fileService.readFilePath();
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

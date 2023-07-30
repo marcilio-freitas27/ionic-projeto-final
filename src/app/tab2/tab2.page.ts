@@ -9,6 +9,7 @@ import tt from '@tomtom-international/web-sdk-maps';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FilesystemService } from '../service/filesystem.service';
 
 @Component({
   selector: 'app-tab2',
@@ -23,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
   ],
 })
-export class Tab2Page{
+export class Tab2Page {
   input: any;
   latitute: any;
   longetude: any;
@@ -33,8 +34,11 @@ export class Tab2Page{
   reverseGeoCoded!: any;
   taxa!: RangeValue;
   tom!: RangeValue;
-  constructor(private http: HttpClient, private speechService: SpeechService) {
-  }
+  constructor(
+    private http: HttpClient,
+    private speechService: SpeechService,
+    public fileService: FilesystemService
+  ) {}
   ionViewDidEnter() {
     console.log('load');
     this.map = tt.map({
@@ -46,7 +50,7 @@ export class Tab2Page{
     let marker = new tt.Marker()
       .setLngLat(new tt.LngLat(-35, -5))
       .addTo(this.map);
-    this.input = 'Pizza';
+    this.input = '';
   }
 
   async geolocation() {
@@ -108,13 +112,21 @@ export class Tab2Page{
 
   clear(text: IonInput) {
     this.speechService.clear(text);
+    // this.input = '';
   }
 
-  speakStart(text: IonInput) {
+  speakStart(text: any) {
     this.speechService.speakStart(text);
+    this.search(text);
+    this.writeSecretFile(text.value);
+    this.input = text;
   }
 
   speakAdd() {
     this.speechService.speakAdd();
+  }
+
+  async writeSecretFile(data: any) {
+    await this.fileService.writeSecretFile(data);
   }
 }

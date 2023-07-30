@@ -53,7 +53,7 @@ export class Tab3Page {
     let chart = new Chart(this.ctx, {
       type: 'bar',
       data: {
-        labels: [`Menos acessada: ${maiorLista?.[0]}`, `Mais acessada: ${menorLista?.[0]}`, 'Total'],
+        labels: [`Menos acessada: ${menorLista?.[0]}`, `Mais acessada: ${maiorLista?.[0]}`, 'Total'],
         datasets: [
           {
             label: 'Pesquisas',

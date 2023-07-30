@@ -47,22 +47,23 @@
       </ion-range>
     </ion-item>
   </div> -->
-  <div #map id="map"></div>
+  <div #map id="map" style="width: 100%; height:200px;"></div>
   <ion-list>
     <ion-item>
       <h3>Tom tom maps search</h3>
     </ion-item>
     <ion-item>
-      <ion-label>
-        {{reverseGeoCoded}}
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-input [(ngModel)]="input" label="Pesquisa" labelPlacement="stacked" placeholder="Digite aqui"></ion-input>
+      <ion-input #input label="Pesquisa" labelPlacement="stacked" placeholder="Digite aqui"></ion-input>
+      <ion-button (click)="speakStart(input.value)" id="hover-trigger">
+        <ion-icon name="mic"></ion-icon>
+      </ion-button>
     </ion-item>
 
     <ion-item>
-      <ion-button (click)="search(input)">Buscar</ion-button>
+      <ion-button (click)="search(input.value)">Buscar</ion-button>
+      <ion-button (click)="clear(input)" color="warning">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
     </ion-item>
 
   </ion-list>
