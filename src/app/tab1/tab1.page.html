@@ -11,14 +11,9 @@
     <ion-list>
       <ion-item>
         <ion-input #input label="Pesquisa" labelPlacement="floating" type="text"></ion-input>
-        <ion-button (click)="speakStart(input.value)" id="hover-trigger">
+        <ion-button (click)="speakStart(input.value)">
           <ion-icon name="mic"></ion-icon>
         </ion-button>
-        <!-- <ion-popover trigger="hover-trigger" triggerAction="hover">
-          <ng-template>
-            <ion-content class="ion-padding">Pesquisa por voz</ion-content>
-          </ng-template>
-        </ion-popover> -->
       </ion-item>
       <ion-item>
         <ion-button (click)="writeSecretFile(input.value)" shape="round">

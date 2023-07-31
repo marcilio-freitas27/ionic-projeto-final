@@ -26,7 +26,7 @@ export class Tab1Page {
   dadosGravados!: any[];
   caminhoGravado!: any;
   result = false;
-  input!: any;
+  entrada!: any;
   constructor(
     public fileService: FilesystemService,
     private speechService: SpeechService
@@ -48,7 +48,7 @@ export class Tab1Page {
   speakStart(text: any) {
     this.speechService.speakStart(text);
     this.writeSecretFile(text);
-    this.input = text;
+    this.entrada = text;
   }
 
   isOpen() {
@@ -61,7 +61,7 @@ export class Tab1Page {
 
   async writeSecretFile(data: any) {
     await this.fileService.writeSecretFile(data);
-    this.input = data;
+    this.entrada = data;
   }
 
   async readSecretFile() {

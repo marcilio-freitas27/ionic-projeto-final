@@ -25,7 +25,7 @@ import { FilesystemService } from '../service/filesystem.service';
   ],
 })
 export class Tab2Page {
-  input: any;
+  entrada!: any;
   latitute: any;
   longetude: any;
   map!: tt.Map;
@@ -50,7 +50,7 @@ export class Tab2Page {
     let marker = new tt.Marker()
       .setLngLat(new tt.LngLat(-35, -5))
       .addTo(this.map);
-    this.input = '';
+    this.entrada = '';
   }
 
   async geolocation() {
@@ -83,6 +83,7 @@ export class Tab2Page {
         `https://api.tomtom.com/search/2/search/${query}.json?lat=${coordinates.coords.latitude}&lon=${coordinates.coords.longitude}&key=qWs3zqjNxKQGEexONPwFAxRE5knGm6K7`
       )
       .toPromise();
+    this.writeSecretFile(query);
     this.result = res.results;
   }
 
@@ -112,14 +113,14 @@ export class Tab2Page {
 
   clear(text: IonInput) {
     this.speechService.clear(text);
-    // this.input = '';
+    this.entrada = '';
   }
 
   speakStart(text: any) {
     this.speechService.speakStart(text);
     this.search(text);
-    this.writeSecretFile(text.value);
-    this.input = text;
+    this.writeSecretFile(text);
+    this.entrada = text;
   }
 
   speakAdd() {
