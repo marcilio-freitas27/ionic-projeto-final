@@ -27,6 +27,7 @@ export class Tab1Page {
   caminhoGravado!: any;
   result = false;
   entrada!: any;
+  dadosApiGoogle!: any[];
   constructor(
     public fileService: FilesystemService,
     private speechService: SpeechService
@@ -37,12 +38,16 @@ export class Tab1Page {
     this.dadosGravados = this.fileService.getDados();
     this.caminhoGravado = this.fileService.getCaminho();
     this.fileService.readSecretFile();
+    this.dadosApiGoogle = [];
   }
 
   googleResults(text: any) {
     this.speechService
       .consultaGoogle(text)
-      .subscribe((arg) => console.log(arg));
+      .subscribe((arg: any) => {
+        console.log(arg.items);
+        this.dadosApiGoogle = arg.items
+      });
   }
 
   speakStart(text: any) {
@@ -62,6 +67,7 @@ export class Tab1Page {
   async writeSecretFile(data: any) {
     await this.fileService.writeSecretFile(data);
     this.entrada = data;
+    this.googleResults(data);
   }
 
   async readSecretFile() {

@@ -17,13 +17,18 @@
       </ion-item>
       <ion-item>
         <ion-button (click)="writeSecretFile(input.value)" shape="round">
-          Gravar
+          Buscar
         </ion-button>
       </ion-item>
-      <ion-item>
+      <!-- <ion-item>
         <ion-button (click)="googleResults(input.value)" shape="round">
           Consulta google
         </ion-button>
+      </ion-item> -->
+      <ion-item *ngFor="let dado of dadosApiGoogle; let index as index">
+        <ion-text>
+          <a [href]="dado.link">{{dado.title}}</a>
+        </ion-text>
       </ion-item>
     </ion-list>
   </form>

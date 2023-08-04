@@ -5,6 +5,7 @@ import { IonInput, RangeCustomEvent } from '@ionic/angular';
 import { IonTextarea, IonicModule } from '@ionic/angular';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +14,17 @@ export class SpeechService {
   googleApi!: string;
   constructor(private http: HttpClient) {
     SpeechRecognition.requestPermissions();
-    // this.googleApi = 'http://www.google.com.br/';
-    this.googleApi = 'https://api.getambassador.com/api/v2/username/token/json/ambassador/get/';
+    let key = 'AIzaSyAhaoj9L6eIaREOjTUzLMsSaSUaV6FXmIo';
+    this.googleApi = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=017576662512468239146:omuauf_lfve`;
+    // this.googleApi = 'https://api.getambassador.com/api/v2/username/token/json/ambassador/get/';
   }
 
-  public consultaGoogle(query: string){
-    return this.http.get(this.googleApi + `search?q=${query}`);
+  public consultaGoogle(query: any){
+    const headers= new HttpHeaders()
+    .set('Accept-Language', 'pt-BR')
+    return this.http.get(this.googleApi + `&q=${query}&oq=${query}`, {
+      'headers': headers
+    });
   }
 
   public speak = async (taxa: RangeValue, tom: RangeValue, text: IonInput) => {
