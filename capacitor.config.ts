@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-projeto-final',
+  appId: 'speak.search.do.ifrn.marcilio',
+  appName: 'Speak to search, Speak to do',
   webDir: 'www',
   server: {
     androidScheme: 'https'
