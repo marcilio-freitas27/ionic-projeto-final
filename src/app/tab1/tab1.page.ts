@@ -30,7 +30,7 @@ export class Tab1Page {
   dadosApiGoogle!: any[];
   constructor(
     public fileService: FilesystemService,
-    private speechService: SpeechService
+    private speechService: SpeechService,
   ) {}
 
   ngOnInit() {
@@ -53,7 +53,7 @@ export class Tab1Page {
   speakStart(text: any) {
     this.speechService.speakStart(text);
     this.writeSecretFile(text);
-    this.entrada = text;
+    this.entrada = text;  
   }
 
   isOpen() {
@@ -80,6 +80,11 @@ export class Tab1Page {
 
   async readFilePath() {
     await this.fileService.readFilePath();
+  }
+
+  clear(text: IonInput) {
+    this.speechService.clear(text);
+    this.entrada = '';
   }
 }
 

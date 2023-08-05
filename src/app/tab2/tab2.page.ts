@@ -2,7 +2,7 @@ import { IonInput } from '@ionic/angular';
 import { RangeValue } from '@ionic/core';
 import { SpeechService } from '../service/speech.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import tt from '@tomtom-international/web-sdk-maps';
@@ -10,6 +10,7 @@ import { Geolocation, Position } from '@capacitor/geolocation';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FilesystemService } from '../service/filesystem.service';
+import { GlobalUtil } from '../utils/global.util';
 
 @Component({
   selector: 'app-tab2',
@@ -34,6 +35,7 @@ export class Tab2Page {
   reverseGeoCoded!: any;
   taxa!: RangeValue;
   tom!: RangeValue;
+  util!: GlobalUtil;
   constructor(
     private http: HttpClient,
     private speechService: SpeechService,
@@ -51,13 +53,11 @@ export class Tab2Page {
       .setLngLat(new tt.LngLat(-35, -5))
       .addTo(this.map);
     this.entrada = '';
+    this.util = new GlobalUtil();
   }
 
   async geolocation() {
-    // await Geolocation.requestPermissions();
     const coordinates = await Geolocation.getCurrentPosition();
-    // this.latitute = coordinates.coords.latitude;
-    // this.longetude = coordinates.coords.longitude;
     let marker2 = new tt.Marker({ color: 'green' })
       .setLngLat([coordinates.coords.longitude, coordinates.coords.latitude])
       .addTo(this.map);

@@ -42,10 +42,6 @@ export class Tab3Page {
     await this.fileService.readSecretFile();
   }
 
-  // updateChart(dado:any ){
-  //   this.total.push(dado);
-  // }
-
   getChart() {
     this.ctx = document.getElementById('myChart');
     const [maiorLista, menorLista] = separarItensSemelhantes(this.dadosGravados);

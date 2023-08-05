@@ -6,14 +6,19 @@ import { IonTextarea, IonicModule } from '@ionic/angular';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { GlobalUtil } from '../utils/global.util';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpeechService {
   googleApi!: string;
+  util!: GlobalUtil;
   constructor(private http: HttpClient) {
-    SpeechRecognition.requestPermissions();
+    this.util = new GlobalUtil();
+    if (this.util.isAndroidOrWeb()) {
+      SpeechRecognition.requestPermissions(); 
+    }
     let key = 'AIzaSyAhaoj9L6eIaREOjTUzLMsSaSUaV6FXmIo';
     this.googleApi = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=017576662512468239146:omuauf_lfve`;
     // this.googleApi = 'https://api.getambassador.com/api/v2/username/token/json/ambassador/get/';
@@ -55,15 +60,17 @@ export class SpeechService {
   };
 
   public speakStart = async (text: IonInput) => {
-    await SpeechRecognition.available();
-    await SpeechRecognition.start({
-      language: 'pt-BR',
-      maxResults: 5,
-      prompt: 'Say something',
-      partialResults: true,
-      popup: true,
-    }).then((res) => (text.value = res?.matches[0]));
-    this.speakAdd();
+    if (this.util.isAndroidOrWeb()) {
+      await SpeechRecognition.available();
+      await SpeechRecognition.start({
+        language: 'pt-BR',
+        maxResults: 5,
+        prompt: 'Say something',
+        partialResults: true,
+        popup: true,
+      }).then((res) => (text.value = res?.matches[0]));
+      this.speakAdd();
+    }
   };
 
   public speakAdd = async () => {
